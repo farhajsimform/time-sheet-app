@@ -1,0 +1,90 @@
+body {
+  background: linear-gradient(to left, #7288ca, rgb(93, 91, 91));
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: white;
+}
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.request-form {
+  max-width: 900px;
+  width: 100%;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  margin: 0 auto;
+}
+
+.logout-btn {
+  color: #fff;
+  cursor: pointer;
+  text-decoration: underline;
+  text-align: right;
+  
+}
+
+.approved-check {
+  background: #3eef9d;
+  color: #333;
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.rejected-check {
+  background: #f57f7f;
+}
+.total-hours {
+  margin: 0;
+  text-align: right;
+  font-size: 20px;
+  font-weight: 500;
+}
+.nav-link {
+  color: #fff;
+}
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 24px;
+  color: #000;
+}
