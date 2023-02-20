@@ -16,7 +16,7 @@ switch into the /time-tracking-server directory and then start the below process
        git clone https://github.com/farhajsimform/time-sheet-app
    ```
 
-2. Change into project directory and run npm install command
+2. After switching into project directory and run npm install command
 
 3. First setup or install mysql database on your local machine and then create .env file in the root project directory 
 
