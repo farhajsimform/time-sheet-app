@@ -1,19 +1,45 @@
 import TimeSheetTable from 'components/molecules/TimeSheetTable'
-import { headers } from 'constant'
+import { headers, reportTypes } from 'constant'
 import useHandleAdminAction from 'hooks/useHandleAdminAction'
 import { FC, useEffect } from 'react'
-import { Button, Container, Row } from 'react-bootstrap'
+import { Button, Container, Row, Form, Col } from 'react-bootstrap'
 import ModalDialog from 'components/atoms/Modal'
+import { IReportTypes } from 'types/interfaces'
 
 const AdminOrgnism: FC = () => {
-  const { tableData, getTimeSheet, visible, setVisible, handleApproveOrReject } =
-    useHandleAdminAction()
+  const {
+    tableData,
+    getTimeSheet,
+    visible,
+    setVisible,
+    handleApproveOrReject,
+    setSelectedReportType,
+    selectedReportType,
+  } = useHandleAdminAction()
   useEffect(() => {
-    getTimeSheet()
-  }, [])
+    getTimeSheet(selectedReportType)
+  }, [selectedReportType])
 
   return (
     <Container>
+      <Row className='mb-3'>
+        <Form.Group as={Col} md={6} controlId='formGridState'>
+          <Form.Label>Select Type</Form.Label>
+          <Form.Select
+            defaultValue='Choose...'
+            value={selectedReportType}
+            onChange={(e) => setSelectedReportType(e.target.value)}
+          >
+            {reportTypes.map((el: IReportTypes, index) => {
+              return (
+                <option key={index} value={el.value}>
+                  {el.key}
+                </option>
+              )
+            })}
+          </Form.Select>
+        </Form.Group>
+      </Row>
       <Row className='mb-3'>
         <TimeSheetTable headers={headers} tableData={tableData} view={''} />
       </Row>

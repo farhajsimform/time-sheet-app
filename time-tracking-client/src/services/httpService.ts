@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, Method } from 'axios'
 
-const baseURL = process.env.REACT_APP_API_URL
+const baseURL = process.env.REACT_APP_API_URL;
+
+console.log('baseURL', baseURL);
 export const baseApiClient = axios.create({
   baseURL: baseURL,
 })

@@ -2,7 +2,18 @@ const ProjectsModel = require("../models/Projects");
 const TaskModel = require("../models/Task");
 const LogsModel = require("../models/Logs");
 const FilterObjects = require("../utils/filterObject");
+const UserModels = require("../models/Users");
 const sequelize = require("../database/connection");
+const { dateRange, weekRange } = require("../utils/commonFunction");
+const { format } = require("date-fns");
+const { getTimeRangeQuery } = require("../utils/getRawQuery");
+
+LogsModel.belongsTo(TaskModel, { foreignKey: "task_id", targetKey: "id" });
+LogsModel.belongsTo(UserModels, { foreignKey: "user_id", targetKey: "id" });
+LogsModel.belongsTo(ProjectsModel, {
+  foreignKey: "project_id",
+  targetKey: "id",
+});
 
 const getAllProjects = async (_, res) => {
   try {
@@ -73,17 +84,63 @@ const timeSheetByTimeView = async (req, res) => {
     const { id: user_id } = req.tokenData;
     const { view, startDate, endDate } = req.query;
 
-    const query =
+    let dateRangeArray =
       view === "month"
-        ? `select id, SUM(duration) as duration, CONCAT(YEAR(date), '-', MONTH(date),'-', WEEK(date)) as date  from Logs 
-    where date between '${startDate}' AND '${endDate}' and user_id = ${user_id} group by MONTH(date)`
-        : `select id, SUM(duration) as duration, CONCAT(YEAR(date), '-', MONTH(date),'-', WEEK(date)) as date  from Logs 
-    where date between '${startDate}' AND '${endDate}' and user_id = ${user_id} group by WEEK(date)`;
+        ? dateRange(new Date(startDate), new Date(endDate))
+        : weekRange(new Date(startDate), new Date(endDate));
 
-    const [results, _] = await sequelize.query(query);
+    let rangeArray = [];
+    let allData = [];
+    console.log("dateRangeArray", dateRangeArray);
+
+    for (const iterator of dateRangeArray) {
+      const query = getTimeRangeQuery(
+        format(new Date(iterator.firstDay), "yyyy-MM-dd HH:mm:ss"),
+        format(new Date(iterator.lastDay), "yyyy-MM-dd HH:mm:ss"),
+        user_id
+      );
+      const [results, _] = await sequelize.query(query);
+
+      const totalDuration = results
+        .map((el) => {
+          return el.duration;
+        })
+        .reduce((acc, val) => {
+          return acc + val;
+        }, 0);
+
+      totalDuration > 0 &&
+        rangeArray.push({
+          duration: totalDuration,
+          date: `${format(
+            new Date(iterator.firstDay),
+            "yyyy-MM-dd"
+          )} - ${format(new Date(iterator.lastDay), "yyyy-MM-dd")}`,
+        });
+      const rangeData = results.map((el) => {
+        return {
+          id: el.id,
+          log_start_time: el.log_start_time,
+          log_end_time: el.log_end_time,
+          duration: el.duration,
+          project_id: el.project_id,
+          task_id: el.task_id,
+          user_id: el.user_id,
+          status: el.status,
+          task_name: el.task_name,
+          project_name: el.name,
+          username: el.username,
+          date: el.date,
+        };
+      });
+      allData = [...allData, ...rangeData];
+    }
 
     res.status(200).json({
-      data: results,
+      data: {
+        rangedata: rangeArray,
+        alldata: allData,
+      },
     });
   } catch (error) {
     res.status(500).json({ message: error.message });

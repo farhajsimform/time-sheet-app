@@ -4,6 +4,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   color: white;
+  overflow-x: hidden;
 }
 .App {
   text-align: center;
@@ -49,7 +50,7 @@ body {
   width: 100%;
   padding: 40px;
   border-radius: 10px;
-  box-shadow: rgb(99 99 99 / 20%) 0px 2px 8px 0px;
+  box-shadow: rgb(45 44 44) 0px 2px 8px 0px;
   margin: 0 auto;
 }
 

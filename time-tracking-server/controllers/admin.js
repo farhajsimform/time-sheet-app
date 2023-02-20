@@ -1,16 +1,19 @@
 const LogsModel = require("../models/Logs");
-const sequelize = require("../database/connection");
-const getTimeSheetByUser = async (_, res) => {
+const UserModel = require("../models/Users");
+const ProjectsModel = require("../models/Projects");
+const TaskModel = require("../models/Task");
+const getTimeSheetByUser = async (req, res) => {
   try {
-    // const [results, _] = await sequelize.query(
-    //   `SELECT * from Logs INNER JOIN Users ON Logs.user_id = Users.id`
-    // );
-    // console.log("results", results);
-    //
+    const { type } = req.query;
     const allReport = await LogsModel.findAll({
       where: {
-        status: "pending",
+        status: type,
       },
+      include: [
+        { model: TaskModel },
+        { model: UserModel, attributes: ["username", "id"] },
+        { model: ProjectsModel, attributes: ["name", "id", "description"] },
+      ],
     });
     res.status(200).json({
       data: allReport,
@@ -28,7 +31,6 @@ const approveOrRejectTimeEntry = async (req, res) => {
         id: Number(log_id),
       },
     });
-    console.log(logById)
     if (logById) {
       await logById.update({ status: approval_type, updatedAt: new Date() });
     }

@@ -9,7 +9,12 @@ const login = async (req, res) => {
       });
       res
         .status(200)
-        .json({ accessToken: token, role: user.type, userid: user.id });
+        .json({
+          accessToken: token,
+          role: user.type,
+          userid: user.id,
+          username: user.username,
+        });
     } else {
       res.status(400).json({ error: "Password Incorrect" });
     }

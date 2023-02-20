@@ -3,7 +3,7 @@ import { useAppDispatch } from 'hooks'
 import { useState } from 'react'
 import { POST } from 'services/httpService'
 import { SetLoggedInUserDetails } from 'store/action/common'
-import { notifyToast } from 'utils'
+import { notifyToast, validateLoginForm } from 'utils'
 import { useNavigate } from 'react-router-dom'
 
 const useLogin = () => {
@@ -14,11 +14,17 @@ const useLogin = () => {
   }
 
   const [userState, setUserState] = useState(initialState)
+  const [formErrors, setFormErrors] = useState(initialState)
   const dispatch = useAppDispatch()
   const onSubmit = async () => {
     try {
       const payload = {
         ...userState,
+      }
+      const { isValid, errors } = validateLoginForm(payload)
+      if (!isValid) {
+        setFormErrors(errors)
+        return
       }
       const response = await POST({ subUrl: APIEndpoints.authentication.login, data: payload })
       if (response.status === HttpStatusCode.Ok) {
@@ -41,6 +47,7 @@ const useLogin = () => {
     userState,
     setUserState,
     onSubmit,
+    formErrors,
   }
 }
 

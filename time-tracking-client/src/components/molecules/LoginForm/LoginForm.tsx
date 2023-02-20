@@ -4,7 +4,7 @@ import TextInput from 'components/atoms/Input'
 import useLogin from 'hooks/useLogin'
 
 const LoginForm: FC = () => {
-  const { userState, setUserState, onSubmit } = useLogin()
+  const { userState, setUserState, onSubmit, formErrors } = useLogin();
   return (
     <div>
       <TextInput
@@ -12,6 +12,7 @@ const LoginForm: FC = () => {
         placeholder='Enter username'
         type='text'
         value={userState.username}
+        error={formErrors?.username}
         onChange={(e) => {
           setUserState({ ...userState, username: e.target.value })
         }}
@@ -22,6 +23,7 @@ const LoginForm: FC = () => {
         placeholder='Enter password'
         type='password'
         value={userState.password}
+        error={formErrors?.password}
         onChange={(e) => {
           setUserState({ ...userState, password: e.target.value })
         }}

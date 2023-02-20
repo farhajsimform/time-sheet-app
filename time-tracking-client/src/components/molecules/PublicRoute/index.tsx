@@ -6,9 +6,7 @@ export interface PublicRouteProps {
   isAllowed?: boolean
   redirectPath?: string
 }
-export const PublicRoute: React.FC<PublicRouteProps> = ({
-  redirectPath = '/create-request',
-}): any => {
+export const PublicRoute: React.FC<PublicRouteProps> = ({ redirectPath = '/create-request' }) => {
   const loggedInUserDetails = useAppSelector((state) => state.common?.loggedInUserData)
   const isAllowed = loggedInUserDetails?.accessToken ? true : false
   if (isAllowed && loggedInUserDetails?.role === 'user') {

@@ -4,6 +4,7 @@ export interface LoggedInUserdetails {
   accessToken: string
   role: string
   userid: string
+  username?: string
 }
 
 export interface CommonState {

@@ -1,21 +1,34 @@
 import { APIEndpoints, HttpStatusCode } from 'constant'
 import { useMemo, useState } from 'react'
 import { GET, PATCH } from 'services/httpService'
+import { ITimeSheetTableData } from 'types/interfaces'
 import { notifyToast } from 'utils'
 
 const useHandleAdminAction = () => {
-  const [tableData, setTableData] = useState([])
+  const [tableData, setTableData] = useState<Array<ITimeSheetTableData>>([])
   const [visible, setVisible] = useState(false)
   const [index, setIndex] = useState<number>(0)
+  const [selectedReportType, setSelectedReportType] = useState('pending')
 
-  const getTimeSheet = async () => {
+  const getTimeSheet = async (type: string) => {
     try {
       const response = await GET({
         subUrl: APIEndpoints.admin.getAllTaskLogs,
+        params: {
+          type,
+        },
       })
 
       if (response.status === HttpStatusCode.Ok) {
-        setTableData(response?.data?.data || [])
+        const timeSheetResponse = (response?.data?.data || []).map((el: any) => {
+          return {
+            ...el,
+            task_name: el?.Task?.task_name,
+            project_name: el?.Project?.name,
+            username: el?.User?.username,
+          }
+        })
+        setTableData(timeSheetResponse)
       }
     } catch (error) {
       return error
@@ -23,7 +36,7 @@ const useHandleAdminAction = () => {
   }
 
   const allTableData = useMemo(() => {
-    const allData = tableData.map((el: any, index) => {
+    const allData = tableData.map((el, index) => {
       return {
         ...el,
         onClick: () => {
@@ -33,7 +46,7 @@ const useHandleAdminAction = () => {
       }
     })
     return allData
-  }, [tableData]);
+  }, [tableData])
 
   const handleApproveOrReject = async (approval_type: string) => {
     try {
@@ -51,6 +64,9 @@ const useHandleAdminAction = () => {
           message: 'Success',
           type: 'success',
         })
+        const oldState = [...tableData]
+        oldState.splice(index, 1)
+        setTableData(oldState)
         setIndex(0)
         setVisible(false)
       }
@@ -69,6 +85,8 @@ const useHandleAdminAction = () => {
     setVisible,
     index,
     handleApproveOrReject,
+    selectedReportType,
+    setSelectedReportType,
   }
 }
 

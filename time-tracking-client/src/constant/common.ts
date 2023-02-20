@@ -33,12 +33,24 @@ export const headers2 = [
     head: '#',
   },
   {
-    head: 'ID',
-  },
-  {
     head: 'DATE',
   },
   {
     head: 'DURATION',
+  },
+]
+
+export const reportTypes = [
+  {
+    value: 'pending',
+    key: 'Pending',
+  },
+  {
+    value: 'rejected',
+    key: 'Rejected',
+  },
+  {
+    value: 'Approved',
+    key: 'approved',
   },
 ]

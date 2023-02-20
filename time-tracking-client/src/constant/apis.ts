@@ -1,10 +1,13 @@
+/* eslint-disable quotes */
 export const APIEndpoints = {
   authentication: {
     login: '/auth/login',
   },
   task: {
-    getProjects: '/task/get-all-projects',
-    getTaskById: '/task/get-task-by-project-id',
+    getProjects: '/task/projects',
+    getTaskById: (id: string) => {
+      return `/task/projects/${id}/task`
+    },
     createLogRequest: '/task/create-log-request',
     getUsersTimeSheet: '/task/get-users-timesheet',
     getUsersTimesheetByView: '/task/get-users-timesheet-by-view',

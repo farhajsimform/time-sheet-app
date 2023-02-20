@@ -7,6 +7,9 @@ const useHandleProjectTaskData = () => {
   const [allTaskByProjectId, setAllTaskByProjectId] = useState([])
   const [selectedProject, setSelectedProject] = useState('')
   const [selectedTask, setSelectedTask] = useState('')
+  const [selectedTaskForEdit, setSelectedTaskForEdit] = useState('')
+  const [selectedProjectForEdit, setSelectedProjectForEdit] = useState('')
+  const [allTaskForEdit, setAllTaskForEdit] = useState([])
 
   const fetchAllProjects = async () => {
     try {
@@ -19,9 +22,19 @@ const useHandleProjectTaskData = () => {
 
   const fetchAllTask = async (id: string) => {
     try {
-      const response = await GET({ subUrl: `${APIEndpoints.task.getTaskById}/${id}` })
+      const response = await GET({ subUrl: APIEndpoints.task.getTaskById(id) })
       setAllTaskByProjectId(response?.data?.data || [])
       setSelectedProject(id)
+    } catch (error) {
+      return error
+    }
+  }
+
+  const fetchAllTaskForEdit = async (id: string) => {
+    try {
+      const response = await GET({ subUrl: APIEndpoints.task.getTaskById(id) })
+      setAllTaskForEdit(response?.data?.data || [])
+      setSelectedProjectForEdit(id)
     } catch (error) {
       return error
     }
@@ -36,6 +49,12 @@ const useHandleProjectTaskData = () => {
     setSelectedTask,
     selectedProject,
     selectedTask,
+    setSelectedTaskForEdit,
+    selectedTaskForEdit,
+    selectedProjectForEdit,
+    allTaskForEdit,
+    fetchAllTaskForEdit,
+    setSelectedProjectForEdit,
   }
 }
 

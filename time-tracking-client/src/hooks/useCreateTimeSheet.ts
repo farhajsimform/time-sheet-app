@@ -1,10 +1,18 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo, useState } from 'react'
 import { differenceInMinutes } from 'date-fns'
-import { notifyToast } from 'utils'
+import { notifyToast, validateEntryForm } from 'utils'
 import { POST } from 'services/httpService'
 import { APIEndpoints, HttpStatusCode } from 'constant'
 
-const useCreateTimeSheet = () => {
+const useCreateTimeSheet = ({
+  setSelectedTask = () => {
+    return
+  },
+  setSelectedProject = () => {
+    return
+  },
+}: any) => {
   const initialTimeState = {
     startTime: new Date(),
     endTime: new Date(),
@@ -13,6 +21,7 @@ const useCreateTimeSheet = () => {
   const [selectedDate, setSelectedDate] = useState<any>(new Date())
   const [timeDuration, setTimeDuration] = useState<any>(initialTimeState)
   const [comment, setComment] = useState('')
+  const [formErrors, setFormErrors] = useState<any>({})
 
   const duration = useMemo(() => {
     const diff = differenceInMinutes(
@@ -21,6 +30,14 @@ const useCreateTimeSheet = () => {
     )
     return diff
   }, [timeDuration])
+
+  const clearFormValues = () => {
+    setTimeDuration(initialTimeState)
+    setSelectedDate(new Date())
+    setComment('')
+    setSelectedTask('')
+    setSelectedProject('')
+  }
 
   const createTimeLogRequest = async (project_id: string, task_id: string) => {
     try {
@@ -33,12 +50,19 @@ const useCreateTimeSheet = () => {
         project_id,
         task_id,
       }
+      const { isValid, errors } = validateEntryForm(payload)
+      if (!isValid) {
+        setFormErrors(errors)
+        return
+      }
       const response = await POST({ subUrl: APIEndpoints.task.createLogRequest, data: payload })
       if (response.status === HttpStatusCode.Ok) {
         notifyToast({
           message: 'Created successfully',
           type: 'success',
         })
+        setFormErrors({})
+        clearFormValues()
       }
     } catch (error: any) {
       notifyToast({
@@ -56,6 +80,9 @@ const useCreateTimeSheet = () => {
     setComment,
     createTimeLogRequest,
     duration,
+    comment,
+    formErrors,
+    setFormErrors,
   }
 }
 

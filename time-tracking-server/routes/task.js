@@ -3,9 +3,9 @@ const router = express.Router();
 const TaskController = require("../controllers/task");
 const UserAuthCheck = require("../middlewares/middleware");
 
-router.get("/get-all-projects", UserAuthCheck, TaskController.getAllProjects);
+router.get("/projects", UserAuthCheck, TaskController.getAllProjects);
 router.get(
-  "/get-task-by-project-id/:project_id",
+  "/projects/:project_id/task",
   UserAuthCheck,
   TaskController.getTaskByProejctId
 );
