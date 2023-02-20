@@ -93,3 +93,8 @@ body {
   font-size: 24px;
   color: #000;
 }
+
+.text-danger {
+  --bs-text-opacity: 1;
+  color: #980505 !important;
+}

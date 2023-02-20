@@ -4,7 +4,8 @@
 This is frontend of time tracker application
 
 https://drive.google.com/file/d/1pu7KD_utpLHTp9tXAr8_eSy1g6oYhthx/view
-Video Demo : https://drive.google.com/file/d/1KQJcGRDEMhkJIsoLxHl3o-nuBEVx10P5/view?usp=share_link
+
+Video Demo : https://drive.google.com/file/d/1krB7bmnFeE59TQvF9J8q_7b3CdqQUOMj/view?usp=share_link
 
 # Steps to run the application
 
