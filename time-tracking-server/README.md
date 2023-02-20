@@ -8,7 +8,8 @@ Video Demo : https://drive.google.com/file/d/1KQJcGRDEMhkJIsoLxHl3o-nuBEVx10P5/v
 
 ## Steps to run the backend server
 
-1. clone the repo from url https://github.com/farhajsimform/time-sheet-app after cloning 
+1. clone the repo from url https://github.com/farhajsimform/time-sheet-app after cloning repo 
+switch into the /time-tracking-server directory and then start the below process
 
 
    ```bash
