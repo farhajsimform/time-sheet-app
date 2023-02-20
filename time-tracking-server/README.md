@@ -18,6 +18,10 @@ switch into the /time-tracking-server directory and then start the below process
 
 2. After switching into project directory and run npm install command
 
+   ```bash
+       npm install
+   ```
+
 3. First setup or install mysql database on your local machine and then create .env file in the root project directory 
 
    ```env
