@@ -94,116 +94,120 @@ const TimeSheetOrgnism = () => {
   return (
     <Container>
       <Row className='mb-3'>
-        <Tabs
-          activeKey={key}
-          id='uncontrolled-tab-example'
-          className='mb-3'
-          onSelect={(value) => selectFormOfData(value as string)}
-        >
-          <Tab eventKey='task' title='View logs by task'>
-            <Row>
-              <Form.Group as={Col} md={8} controlId='formGridState'>
-                <Form.Label>Select Task</Form.Label>
-                <Form.Select
-                  defaultValue='Choose...'
-                  value={selectedTask}
-                  onChange={(e) => setSelectedTask(e.target.value)}
-                >
-                  <option>Choose...</option>
-                  {allTaskByProjectId.map((el: any, index) => {
-                    return (
-                      <option key={index} value={el.id}>
-                        {el.task_name}
-                      </option>
-                    )
-                  })}
-                </Form.Select>
-              </Form.Group>
-              <Col md={4} className='d-flex justify-content-end align-items-end'>
-                <h6 className='total-hours'>Total hours: {totalHors}</h6>
-              </Col>
-            </Row>
-          </Tab>
-          <Tab eventKey='project' title='View logs by project'>
-            <Row>
-              <Form.Group as={Col} md={8} controlId='formGridState'>
-                <Form.Label>Select Project</Form.Label>
-                <Form.Select
-                  defaultValue='Choose...'
-                  value={selectedProject}
-                  onChange={(e) => setSelectedProject(e.target.value)}
-                >
-                  <option>Choose...</option>
-                  {allProjects.map((el: any, index) => {
-                    return (
-                      <option key={index} value={el.id}>
-                        {el.name}
-                      </option>
-                    )
-                  })}
-                </Form.Select>
-              </Form.Group>
-              <Col md={4} className='d-flex justify-content-end align-items-end'>
-                <h6 className='total-hours'>Total hours: {totalHors}</h6>
-              </Col>
-            </Row>
-          </Tab>
-          <Tab eventKey='view' title='View logs by duration'>
-            <Row>
-              <Form.Group as={Col} md={3} controlId='formGridEmail'>
-                <Form.Label>From</Form.Label>
-                <DatePicker
-                  selected={startDate}
-                  maxDate={new Date()}
-                  className='form-control'
-                  onChange={(date: any) => {
-                    setStartDate(date)
-                  }}
-                />
-              </Form.Group>
-              <Form.Group as={Col} md={3} controlId='formGridEmail'>
-                <Form.Label>TO</Form.Label>
-                <DatePicker
-                  selected={endDate}
-                  maxDate={new Date()}
-                  className='form-control'
-                  onChange={(date: any) => {
-                    setEndDate(date)
-                  }}
-                />
-              </Form.Group>
+        <Col md={12}>
+          <Tabs
+            activeKey={key}
+            id='uncontrolled-tab-example'
+            className='mb-3'
+            onSelect={(value) => selectFormOfData(value as string)}
+          >
+            <Tab eventKey='task' title='View logs by task'>
+              <Row>
+                <Form.Group as={Col} md={6} controlId='formGridState'>
+                  <Form.Label>Select Task</Form.Label>
+                  <Form.Select
+                    defaultValue='Choose...'
+                    value={selectedTask}
+                    onChange={(e) => setSelectedTask(e.target.value)}
+                  >
+                    <option>Choose...</option>
+                    {allTaskByProjectId.map((el: any, index) => {
+                      return (
+                        <option key={index} value={el.id}>
+                          {el.task_name}
+                        </option>
+                      )
+                    })}
+                  </Form.Select>
+                </Form.Group>
+                <Col md={6} className='d-flex justify-content-end align-items-end'>
+                  <h6 className='total-hours'>Total hours: {totalHors}</h6>
+                </Col>
+              </Row>
+            </Tab>
+            <Tab eventKey='project' title='View logs by project'>
+              <Row>
+                <Form.Group as={Col} md={6} controlId='formGridState'>
+                  <Form.Label>Select Project</Form.Label>
+                  <Form.Select
+                    defaultValue='Choose...'
+                    value={selectedProject}
+                    onChange={(e) => setSelectedProject(e.target.value)}
+                  >
+                    <option>Choose...</option>
+                    {allProjects.map((el: any, index) => {
+                      return (
+                        <option key={index} value={el.id}>
+                          {el.name}
+                        </option>
+                      )
+                    })}
+                  </Form.Select>
+                </Form.Group>
+                <Col md={6} className='d-flex justify-content-end align-items-end'>
+                  <h6 className='total-hours'>Total hours: {totalHors}</h6>
+                </Col>
+              </Row>
+            </Tab>
+            <Tab eventKey='view' title='View logs by duration'>
+              <Row>
+                <Form.Group as={Col} md={3} controlId='formGridEmail'>
+                  <Form.Label>From</Form.Label>
+                  <DatePicker
+                    selected={startDate}
+                    maxDate={new Date()}
+                    className='form-control'
+                    onChange={(date: any) => {
+                      setStartDate(date)
+                    }}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} md={3} controlId='formGridEmail'>
+                  <Form.Label>TO</Form.Label>
+                  <DatePicker
+                    selected={endDate}
+                    maxDate={new Date()}
+                    className='form-control'
+                    onChange={(date: any) => {
+                      setEndDate(date)
+                    }}
+                  />
+                </Form.Group>
 
-              <Form.Group as={Col} md={3} controlId='formGridState'>
-                <Form.Label>Select view</Form.Label>
-                <Form.Select
-                  value={view}
-                  onChange={(e) => {
-                    e.target.value !== 'Choose....' && setView(e.target.value)
-                  }}
-                >
-                  <option>Choose....</option>
-                  <option value={'week'}>Week</option>
-                  <option value={'month'}>Month</option>
-                </Form.Select>
-              </Form.Group>
-              <Form.Group as={Col} md={3} className='d-flex justify-content-end align-items-end'>
-                <Button text='Get report' onClick={() => getTimeSheetByView()} />
-              </Form.Group>
-            </Row>
-          </Tab>
-        </Tabs>
+                <Form.Group as={Col} md={3} controlId='formGridState'>
+                  <Form.Label>Select view</Form.Label>
+                  <Form.Select
+                    value={view}
+                    onChange={(e) => {
+                      e.target.value !== 'Choose....' && setView(e.target.value)
+                    }}
+                  >
+                    <option>Choose....</option>
+                    <option value={'week'}>Week</option>
+                    <option value={'month'}>Month</option>
+                  </Form.Select>
+                </Form.Group>
+                <Form.Group as={Col} md={3} className='d-flex justify-content-end align-items-end'>
+                  <Button text='Get report' onClick={() => getTimeSheetByView()} />
+                </Form.Group>
+              </Row>
+            </Tab>
+          </Tabs>
+        </Col>
       </Row>
       <Row className='mb-3'>
-        {key === 'view' ? (
-          <>
-            {innerTableData.length ? (
-              <TimeSheetTable headers={headers2} tableData={innerTableData} view={key} />
-            ) : null}
-          </>
-        ) : null}
-        {tableData.length ? (
-          <TimeSheetTable headers={headers} tableData={tableData} view={''} />
-        ) : null}
+        <Col md={12}>
+          {key === 'view' ? (
+            <>
+              {innerTableData.length ? (
+                <TimeSheetTable headers={headers2} tableData={innerTableData} view={key} />
+              ) : null}
+            </>
+          ) : null}
+          {tableData.length ? (
+            <TimeSheetTable headers={headers} tableData={tableData} view={''} />
+          ) : null}
+        </Col>
       </Row>
       {visible && (
         <ModalDialog
@@ -221,7 +225,9 @@ const TimeSheetOrgnism = () => {
             <Form className='request-form-update-form'>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formGridState'>
-                  <Form.Label>Select project <span style={{ color: 'red' }}>*</span></Form.Label>
+                  <Form.Label>
+                    Select project <span style={{ color: 'red' }}>*</span>
+                  </Form.Label>
                   <Form.Select
                     defaultValue='Choose...'
                     value={selectedProjectForEdit}
@@ -244,7 +250,9 @@ const TimeSheetOrgnism = () => {
                 </Form.Group>
 
                 <Form.Group as={Col} controlId='formGridState'>
-                  <Form.Label>Select task <span style={{ color: 'red' }}>*</span></Form.Label>
+                  <Form.Label>
+                    Select task <span style={{ color: 'red' }}>*</span>
+                  </Form.Label>
                   <Form.Select
                     defaultValue='Choose...'
                     value={selectedTaskForEdit}
@@ -266,7 +274,9 @@ const TimeSheetOrgnism = () => {
                   )}
                 </Form.Group>
                 <Form.Group as={Col} controlId='formGridEmail'>
-                  <Form.Label>Select date <span style={{ color: 'red' }}>*</span></Form.Label>
+                  <Form.Label>
+                    Select date <span style={{ color: 'red' }}>*</span>
+                  </Form.Label>
                   <DatePicker
                     selected={selectedDate}
                     onChange={(date) => setSelectedDate(date)}
@@ -277,7 +287,9 @@ const TimeSheetOrgnism = () => {
               </Row>
               <Row className='mb-3'>
                 <Form.Group as={Col} controlId='formGridPassword'>
-                  <Form.Label>Select start time <span style={{ color: 'red' }}>*</span></Form.Label>
+                  <Form.Label>
+                    Select start time <span style={{ color: 'red' }}>*</span>
+                  </Form.Label>
                   <DatePicker
                     selected={timeDuration.startTime}
                     onChange={(date) => setTimeDuration({ ...timeDuration, startTime: date })}
@@ -290,7 +302,9 @@ const TimeSheetOrgnism = () => {
                   />
                 </Form.Group>
                 <Form.Group as={Col} controlId='formGridPassword'>
-                  <Form.Label>Select end time <span style={{ color: 'red' }}>*</span></Form.Label>
+                  <Form.Label>
+                    Select end time <span style={{ color: 'red' }}>*</span>
+                  </Form.Label>
                   <DatePicker
                     selected={timeDuration.endTime}
                     onChange={(date) => setTimeDuration({ ...timeDuration, endTime: date })}
