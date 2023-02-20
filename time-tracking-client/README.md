@@ -31,7 +31,7 @@ the Base url of backend server
 sample .env.local
 
 ```env
-REACT_APP_API_URL="http://localhost:4090"
+REACT_APP_API_URL = 'http://localhost:8080'
 ```
 
 4. Run project using npm run start
