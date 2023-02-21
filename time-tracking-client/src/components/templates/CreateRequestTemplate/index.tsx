@@ -3,7 +3,7 @@ import CreateRequestForm from 'components/molecules/CreateRequestForm/CreateRequ
 
 const CreateRequestTemplate = () => {
   return (
-    <Layout>
+    <Layout title='Create Request'>
       <CreateRequestForm />
     </Layout>
   )

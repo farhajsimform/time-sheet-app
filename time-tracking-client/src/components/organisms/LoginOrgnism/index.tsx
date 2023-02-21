@@ -4,7 +4,7 @@ import './styles.css'
 
 const LoginOrgnism: FC = () => {
   return (
-    <div className='container login-form'>
+    <div className='login-form'>
       <div className='form-box'>
         <div className='header-form'>
           <h4 className='text-primary text-center'>

@@ -6,16 +6,18 @@ import { viewStyles } from './styles'
 
 interface ILayoutProps {
   children: React.ReactNode
+  title?: string
 }
-const Layout: FC<ILayoutProps> = ({ children }) => {
+const Layout: FC<ILayoutProps> = ({ children, title }) => {
   return (
     <div>
       <Header />
-      <div className='row'>
+      <div className='d-flex'>
         <Sidebar>
           <Menu />
         </Sidebar>
-        <div className=' col-md-10' style={viewStyles}>
+        <div style={viewStyles}>
+          <h1 className='layout-page-title'>{title}</h1>
           {children}
         </div>
       </div>

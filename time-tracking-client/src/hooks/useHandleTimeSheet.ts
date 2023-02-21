@@ -26,7 +26,7 @@ const useHandleTimeSheet = ({
     comment,
     formErrors,
     setFormErrors,
-  } = useCreateTimeSheet({});
+  } = useCreateTimeSheet({})
   const [tableData, setTableData] = useState([])
   const [innerTableData, setInnerTableData] = useState([])
   const [startDate, setStartDate] = useState<any>(new Date())
@@ -194,6 +194,7 @@ const useHandleTimeSheet = ({
     handleUpdateEditEntry,
     innerTableData,
     formErrors,
+    setInnerTableData,
   }
 }
 

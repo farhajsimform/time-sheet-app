@@ -1,3 +1,4 @@
 export const viewStyles: any = {
-  padding: '80px 20px 0',
+  padding: '30px 20px',
+  width: 'calc(100% - 250px)',
 }

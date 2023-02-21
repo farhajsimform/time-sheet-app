@@ -1,9 +1,9 @@
 import { useAppDispatch, useAppSelector } from 'hooks'
 import React, { FC } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Row, Col } from 'react-bootstrap'
+import { Nav, NavDropdown } from 'react-bootstrap'
 import { SetLoggedInUserDetails } from 'store/action/common'
-import { headingStyles, viewStyles, userStyles } from './styles'
+import { headingStyles, viewStyles } from './styles'
 
 const Header: FC = () => {
   const dispatch = useAppDispatch()
@@ -15,17 +15,29 @@ const Header: FC = () => {
     navigate('/')
   }
   return (
-    <Row style={viewStyles}>
-      <Col md={5}>
-        <h2 style={headingStyles}> time tracking app</h2>
-      </Col>
-      <Col md={5}>
-        <h3 style={userStyles}>
-          {' '}
-          <i className='fa fa-fw fa-user-o'></i> Hello, {username}
-        </h3>
-      </Col>
-      <Col md={2} className='d-flex justify-content-end'>
+    <div style={viewStyles}>
+      <h2 style={headingStyles}> time tracking app</h2>
+      <Nav className='ms-auto nav-user-dropdown'>
+        <NavDropdown
+          title={
+            <>
+              {' '}
+              <i className='fa fa-fw fa-user-o'></i> Hello, {username}
+            </>
+          }
+          id='basic-nav-dropdown'
+        >
+          <NavDropdown.Item
+            onClick={() => {
+              LogOutUser()
+            }}
+          >
+            Logout
+          </NavDropdown.Item>
+        </NavDropdown>
+      </Nav>
+
+      {/* <Col md={2} className='d-flex justify-content-end'>
         <h6
           className='logout-btn'
           onClick={() => {
@@ -34,8 +46,8 @@ const Header: FC = () => {
         >
           Logout
         </h6>
-      </Col>
-    </Row>
+      </Col> */}
+    </div>
   )
 }
 

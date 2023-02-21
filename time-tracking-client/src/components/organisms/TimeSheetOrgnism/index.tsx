@@ -1,5 +1,5 @@
 import TimeSheetTable from 'components/molecules/TimeSheetTable'
-import { Row, Container, Form, Col, Tabs, Tab } from 'react-bootstrap'
+import { Row, Form, Col, Tabs, Tab } from 'react-bootstrap'
 import useHandleTimeSheet from 'hooks/useHandleTimeSheet'
 import { useEffect, useMemo, useState } from 'react'
 import { headers, headers2 } from 'constant'
@@ -53,6 +53,7 @@ const TimeSheetOrgnism = () => {
     handleUpdateEditEntry,
     innerTableData,
     formErrors,
+    setInnerTableData,
   } = useHandleTimeSheet({ setSelectedTaskForEdit, setSelectedProjectForEdit, fetchAllTaskForEdit })
 
   useEffect(() => {
@@ -88,22 +89,32 @@ const TimeSheetOrgnism = () => {
       setSelectedTask('')
       setSelectedProject('')
       setTableData([])
+      setInnerTableData([])
     }
   }
 
+  useEffect(() => {
+    if (key === 'task') {
+      setSelectedTask(allTaskByProjectId?.[0]?.id)
+    }
+    if (key === 'project') {
+      setSelectedProject(allProjects?.[0]?.id)
+    }
+  }, [allTaskByProjectId, key, allProjects])
+
   return (
-    <Container>
+    <div>
       <Row className='mb-3'>
         <Col md={12}>
           <Tabs
             activeKey={key}
             id='uncontrolled-tab-example'
-            className='mb-3'
+            className='mb-3 custom-timesheet-tab'
             onSelect={(value) => selectFormOfData(value as string)}
           >
             <Tab eventKey='task' title='View logs by task'>
               <Row>
-                <Form.Group as={Col} md={6} controlId='formGridState'>
+                <Form.Group as={Col} md={3} controlId='formGridState'>
                   <Form.Label>Select Task</Form.Label>
                   <Form.Select
                     defaultValue='Choose...'
@@ -111,7 +122,7 @@ const TimeSheetOrgnism = () => {
                     onChange={(e) => setSelectedTask(e.target.value)}
                   >
                     <option>Choose...</option>
-                    {allTaskByProjectId.map((el: any, index) => {
+                    {allTaskByProjectId.map((el: any, index: number) => {
                       return (
                         <option key={index} value={el.id}>
                           {el.task_name}
@@ -120,14 +131,14 @@ const TimeSheetOrgnism = () => {
                     })}
                   </Form.Select>
                 </Form.Group>
-                <Col md={6} className='d-flex justify-content-end align-items-end'>
+                <Col md={9} className='d-flex justify-content-end align-items-end'>
                   <h6 className='total-hours'>Total hours: {totalHors}</h6>
                 </Col>
               </Row>
             </Tab>
             <Tab eventKey='project' title='View logs by project'>
               <Row>
-                <Form.Group as={Col} md={6} controlId='formGridState'>
+                <Form.Group as={Col} md={3} controlId='formGridState'>
                   <Form.Label>Select Project</Form.Label>
                   <Form.Select
                     defaultValue='Choose...'
@@ -144,7 +155,7 @@ const TimeSheetOrgnism = () => {
                     })}
                   </Form.Select>
                 </Form.Group>
-                <Col md={6} className='d-flex justify-content-end align-items-end'>
+                <Col md={9} className='d-flex justify-content-end align-items-end'>
                   <h6 className='total-hours'>Total hours: {totalHors}</h6>
                 </Col>
               </Row>
@@ -218,13 +229,13 @@ const TimeSheetOrgnism = () => {
           handleSubmit={() => {
             return
           }}
-          heading={'Are you sure want to perform action?'}
+          heading={'Edit entries'}
           isFooter={false}
         >
           <Row className='mb-3'>
             <Form className='request-form-update-form'>
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formGridState'>
+                <Form.Group as={Col} controlId='formGridState' className='col-md-12 mb-3'>
                   <Form.Label>
                     Select project <span style={{ color: 'red' }}>*</span>
                   </Form.Label>
@@ -249,7 +260,7 @@ const TimeSheetOrgnism = () => {
                   )}
                 </Form.Group>
 
-                <Form.Group as={Col} controlId='formGridState'>
+                <Form.Group as={Col} controlId='formGridState' className='col-md-6'>
                   <Form.Label>
                     Select task <span style={{ color: 'red' }}>*</span>
                   </Form.Label>
@@ -273,7 +284,7 @@ const TimeSheetOrgnism = () => {
                     <Form.Text className='text-danger'>{formErrors?.task}</Form.Text>
                   )}
                 </Form.Group>
-                <Form.Group as={Col} controlId='formGridEmail'>
+                <Form.Group as={Col} controlId='formGridEmail' className='col-md-6'>
                   <Form.Label>
                     Select date <span style={{ color: 'red' }}>*</span>
                   </Form.Label>
@@ -286,7 +297,7 @@ const TimeSheetOrgnism = () => {
                 </Form.Group>
               </Row>
               <Row className='mb-3'>
-                <Form.Group as={Col} controlId='formGridPassword'>
+                <Form.Group as={Col} controlId='formGridPassword' className='col-md-6'>
                   <Form.Label>
                     Select start time <span style={{ color: 'red' }}>*</span>
                   </Form.Label>
@@ -301,7 +312,7 @@ const TimeSheetOrgnism = () => {
                     className='form-control'
                   />
                 </Form.Group>
-                <Form.Group as={Col} controlId='formGridPassword'>
+                <Form.Group as={Col} controlId='formGridPassword' className='col-md-6'>
                   <Form.Label>
                     Select end time <span style={{ color: 'red' }}>*</span>
                   </Form.Label>
@@ -319,7 +330,7 @@ const TimeSheetOrgnism = () => {
                     <Form.Text className='text-danger'>{formErrors?.duration}</Form.Text>
                   )}
                 </Form.Group>
-                <Form.Group as={Col} controlId='formGridPassword'>
+                <Form.Group as={Col} controlId='formGridPassword' className='col-md-6 mt-3'>
                   <Form.Label>Duration</Form.Label>
                   <div style={{ color: 'black' }}>{formatTime(duration)}</div>
                 </Form.Group>
@@ -329,7 +340,7 @@ const TimeSheetOrgnism = () => {
                 <Form.Label>Comment</Form.Label>
                 <Form.Control
                   as='textarea'
-                  rows={3}
+                  rows={5}
                   onChange={(e) => setComment(e.target.value)}
                   value={comment}
                 />
@@ -347,7 +358,7 @@ const TimeSheetOrgnism = () => {
           </Row>
         </ModalDialog>
       )}
-    </Container>
+    </div>
   )
 }
 

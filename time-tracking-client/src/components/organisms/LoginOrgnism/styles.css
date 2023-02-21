@@ -4,26 +4,29 @@
   justify-content: center;
   height: 100vh;
   width: 100%;
+  background: rgb(0,0,0);background: linear-gradient(0deg, rgba(0,0,0,0.10) 0%, rgba(255,255,255,0.5970763305322129) 100%);
 }
 .form-box {
-  width: 380px;
-  height: 450px;
-  background-color: black;
-  padding: 20px;
+  width: 450px;
+  height: auto;
+  background-color: #fff;
+  padding: 40px 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  opacity: 0.5;
-  border-radius: 2%;
+  border-radius: 8px;
+  box-shadow: 0px 4px 114px rgba(0,0,0,0.1);
 }
 .header-form {
   margin-bottom: 15px;
 }
 .login-button {
-  margin-top: 40px;
-  margin-bottom: 10px;
+  margin-top: 20px;
+  display: block;
+  width: 100%;
 }
 .message {
   display: flex;
   justify-content: space-between;
 }
+

@@ -10,11 +10,11 @@ interface IMenuItemProps {
 const MenuItem: FC<IMenuItemProps> = ({ title, icon, path }) => {
   const menuItemStyle: any = {
     display: 'block',
-    padding: '10px',
-    paddingLeft: '30px',
-    color: '#fdfdfd',
-    margin: '0 -12px',
-    borderBottom: '1px solid rgb(35, 50, 66)',
+    padding: '16px',
+    color: '#333',
+    borderBottom: '1px solid #e2e8f0',
+    textDecoration: 'none',
+    fontSize: '16px',
   }
 
   const iconStyle = {

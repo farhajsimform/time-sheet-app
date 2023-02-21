@@ -3,26 +3,26 @@ module.exports = {
   up: async (queryInterface, Sequelize) => {
     let dummyJSONProjects = [
       {
-        name: "DC time tracking app",
-        description: "Its a DC time tracking app",
+        name: "Time tracking app",
+        description: "",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "DC time tracking app2",
-        description: "Its a DC time tracking app2",
+        name: "Gamers club application",
+        description: "",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "DC time tracking app3",
-        description: "Its a DC time tracking app2",
+        name: "Voting application",
+        description: "",
         createdAt: new Date(),
         updatedAt: new Date(),
       },
       {
-        name: "DC time tracking app4",
-        description: "Its a DC time tracking app2",
+        name: "Chat application",
+        description: "",
         createdAt: new Date(),
         updatedAt: new Date(),
       },

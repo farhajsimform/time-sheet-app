@@ -3,8 +3,8 @@ import { useState } from 'react'
 import { GET } from 'services/httpService'
 
 const useHandleProjectTaskData = () => {
-  const [allProjects, setAllProjects] = useState([])
-  const [allTaskByProjectId, setAllTaskByProjectId] = useState([])
+  const [allProjects, setAllProjects] = useState<Array<any>>([])
+  const [allTaskByProjectId, setAllTaskByProjectId] = useState<any>([])
   const [selectedProject, setSelectedProject] = useState('')
   const [selectedTask, setSelectedTask] = useState('')
   const [selectedTaskForEdit, setSelectedTaskForEdit] = useState('')

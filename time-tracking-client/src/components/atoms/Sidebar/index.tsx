@@ -5,16 +5,15 @@ interface ISidebarProps {
 }
 const Sidebar: FC<ISidebarProps> = ({ children }) => {
   const sidebarStyle: any = {
-    // position: 'absolute',
-    // width: '230px',
-    height: '100vh',
-    background: '#2A3F54',
-    zIndex: 9999,
+    height: 'calc(100vh - 61px)',
     display: 'flex',
+    width: '250px',
+    background: ' #FFFFFF',
+    boxShadow: 'inset -2px 0px 8px rgba(0, 0, 0, 0.04)',
   }
 
   return (
-    <div className='sidebar col-md-2' style={sidebarStyle}>
+    <div className='sidebar' style={sidebarStyle}>
       {children}
     </div>
   )

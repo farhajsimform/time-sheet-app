@@ -27,7 +27,7 @@ const CreateRequestForm: FC = () => {
     createTimeLogRequest,
     setComment,
     formErrors,
-    comment
+    comment,
   } = useCreateTimeSheet({ setSelectedTask, setSelectedProject })
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const CreateRequestForm: FC = () => {
             }}
           >
             <option>Choose...</option>
-            {allTaskByProjectId.map((el: any, index) => {
+            {allTaskByProjectId.map((el: any, index: number) => {
               return (
                 <option key={index} value={el.id}>
                   {el.task_name}

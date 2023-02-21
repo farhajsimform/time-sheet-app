@@ -4,7 +4,7 @@ import TextInput from 'components/atoms/Input'
 import useLogin from 'hooks/useLogin'
 
 const LoginForm: FC = () => {
-  const { userState, setUserState, onSubmit, formErrors } = useLogin();
+  const { userState, setUserState, onSubmit, formErrors } = useLogin()
   return (
     <div>
       <TextInput
@@ -32,7 +32,7 @@ const LoginForm: FC = () => {
       <Button
         type='submit'
         text='Login'
-        className='btn btn-secondary btn-block login-button'
+        className='btn btn-primary btn-block login-button'
         onClick={onSubmit}
       />
     </div>

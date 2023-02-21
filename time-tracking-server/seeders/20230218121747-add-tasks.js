@@ -5,11 +5,19 @@ const ProjectsModel = require("../models/Projects");
 module.exports = {
   async up(queryInterface, Sequelize) {
     const getAllProjects = await ProjectsModel.findAll({});
+    const TaskNames = [
+      "User profile setup",
+      "Image scroll issue",
+      "Background color issue",
+      "Navbar implementation",
+      "Add logic for unique name",
+      "User profile testing",
+      "Login signup implementation",
+    ];
     for (const object of getAllProjects) {
       const taskData = [...Array(5).keys()].map((el) => {
-        let uniqueId = Math.random().toString(16).slice(2);
         return {
-          task_name: `DC test ${uniqueId}`,
+          task_name: TaskNames[Math.floor(Math.random() * TaskNames.length)],
           project_id: object.id,
           createdAt: new Date(),
           updatedAt: new Date(),
@@ -23,3 +31,4 @@ module.exports = {
     await queryInterface.bulkDelete("Tasks", null, {});
   },
 };
+

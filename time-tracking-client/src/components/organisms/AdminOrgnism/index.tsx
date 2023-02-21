@@ -2,7 +2,7 @@ import TimeSheetTable from 'components/molecules/TimeSheetTable'
 import { headers, reportTypes } from 'constant'
 import useHandleAdminAction from 'hooks/useHandleAdminAction'
 import { FC, useEffect } from 'react'
-import { Button, Container, Row, Form, Col } from 'react-bootstrap'
+import { Button, Row, Form, Col } from 'react-bootstrap'
 import ModalDialog from 'components/atoms/Modal'
 import { IReportTypes } from 'types/interfaces'
 
@@ -21,9 +21,9 @@ const AdminOrgnism: FC = () => {
   }, [selectedReportType])
 
   return (
-    <Container>
+    <div>
       <Row className='mb-3'>
-        <Form.Group as={Col} md={6} controlId='formGridState'>
+        <Form.Group as={Col} md={3} controlId='formGridState'>
           <Form.Label>Select Type</Form.Label>
           <Form.Select
             defaultValue='Choose...'
@@ -40,9 +40,9 @@ const AdminOrgnism: FC = () => {
           </Form.Select>
         </Form.Group>
       </Row>
-      <Row className='mb-3'>
-        <TimeSheetTable headers={headers} tableData={tableData} view={''} />
-      </Row>
+
+      <TimeSheetTable headers={headers} tableData={tableData} view={''} />
+
       {visible && (
         <ModalDialog
           visible={visible}
@@ -76,7 +76,7 @@ const AdminOrgnism: FC = () => {
           </Row>
         </ModalDialog>
       )}
-    </Container>
+    </div>
   )
 }
 

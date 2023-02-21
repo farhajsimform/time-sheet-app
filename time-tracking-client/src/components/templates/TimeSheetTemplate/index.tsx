@@ -4,7 +4,7 @@ import { FC } from 'react'
 
 const TimeSheetTableTemplate: FC = () => {
   return (
-    <Layout>
+    <Layout title='Timesheet Table'>
       <TimeSheetOrgnism />
     </Layout>
   )

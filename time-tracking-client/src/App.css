@@ -1,11 +1,11 @@
-body {
+/* body {
   background: linear-gradient(to left, #7288ca, rgb(93, 91, 91));
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: white;
   overflow-x: hidden;
-}
+} */
 .App {
   text-align: center;
 }
@@ -46,12 +46,7 @@ body {
 }
 
 .request-form {
-  max-width: 900px;
   width: 100%;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: rgb(45 44 44) 0px 2px 8px 0px;
-  margin: 0 auto;
 }
 
 .logout-btn {
@@ -59,7 +54,6 @@ body {
   cursor: pointer;
   text-decoration: underline;
   text-align: right;
-  
 }
 
 .approved-check {
@@ -78,11 +72,12 @@ body {
   font-size: 20px;
   font-weight: 500;
 }
-.nav-link, .nav-tabs .nav-link:hover {
+.nav-link,
+.nav-tabs .nav-link:hover {
   color: #fff;
 }
 
- .nav-tabs .nav-link.active:hover {
+.nav-tabs .nav-link.active:hover {
   color: #000;
 }
 .loader {
@@ -97,4 +92,36 @@ body {
 .text-danger {
   --bs-text-opacity: 1;
   color: #980505 !important;
+}
+
+.form-control {
+  height: 40px;
+}
+
+.nav-user-dropdown .nav-link {
+  color: #333;
+}
+.layout-page-title {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: #000000;
+  margin: 0 0 20px;
+}
+
+.custom-timesheet-tab .nav-item .nav-link {
+  border: 0px;
+  color: #717171;
+  border-radius: 0px;
+}
+
+.custom-timesheet-tab .nav-item .nav-link.active {
+  border-bottom: 1px solid black;
+  color: #000;
+}
+textarea.form-control {
+  height: 80px;
+}
+.react-datepicker__triangle::before{
+  left: -15px !important;
 }
