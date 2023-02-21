@@ -28,7 +28,7 @@ const TimeSheetOrgnism = () => {
     selectedProjectForEdit,
     allTaskForEdit,
     fetchAllTaskForEdit,
-  } = useHandleProjectTaskData()
+  } = useHandleProjectTaskData();
 
   const {
     tableData,
@@ -54,7 +54,7 @@ const TimeSheetOrgnism = () => {
     innerTableData,
     formErrors,
     setInnerTableData,
-  } = useHandleTimeSheet({ setSelectedTaskForEdit, setSelectedProjectForEdit, fetchAllTaskForEdit })
+  } = useHandleTimeSheet({ setSelectedTaskForEdit, setSelectedProjectForEdit, fetchAllTaskForEdit, key })
 
   useEffect(() => {
     fetchAllProjects()

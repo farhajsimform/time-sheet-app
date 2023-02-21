@@ -2,6 +2,7 @@ import { APIEndpoints, HttpStatusCode } from 'constant'
 import { format } from 'date-fns'
 import { useMemo, useState } from 'react'
 import { GET, PATCH } from 'services/httpService'
+import { ITimeSheetTableData } from 'types/interfaces'
 import { notifyToast, validateEntryForm } from 'utils'
 import useCreateTimeSheet from './useCreateTimeSheet'
 
@@ -27,7 +28,7 @@ const useHandleTimeSheet = ({
     formErrors,
     setFormErrors,
   } = useCreateTimeSheet({})
-  const [tableData, setTableData] = useState([])
+  const [tableData, setTableData] = useState<Array<ITimeSheetTableData>>([])
   const [innerTableData, setInnerTableData] = useState([])
   const [startDate, setStartDate] = useState<any>(new Date())
   const [endDate, setEndDate] = useState<any>(new Date())
@@ -103,7 +104,7 @@ const useHandleTimeSheet = ({
       project_id,
       task_id,
       id,
-    } = tableData[index] || ({} as any)
+    } = tableData[index]
     setComment(commentdata)
     setTimeDuration({
       ...timeDuration,
@@ -114,7 +115,7 @@ const useHandleTimeSheet = ({
     setSelectedProjectForEdit(project_id)
     fetchAllTaskForEdit(project_id)
     setSelectedDate(new Date(date))
-    setLogId(id)
+    setLogId(id as string)
     setIndex(index)
     setVisible(true)
   }
@@ -132,6 +133,19 @@ const useHandleTimeSheet = ({
     setLogId('')
     setIndex(0)
     setVisible(false)
+  }
+
+  const updateTableEntry = (project_id: string, task_id: string) => {
+    const oldState = [...tableData]
+    oldState[index].log_start_time = timeDuration.startTime
+    oldState[index].log_end_time = timeDuration.endTime
+    oldState[index].date = selectedDate
+    oldState[index].comment = comment
+    oldState[index].duration = duration
+    oldState[index].project_id = project_id
+    oldState[index].task_id = task_id
+    oldState[index].status = 'pending'
+    setTableData(oldState)
   }
 
   const handleUpdateEditEntry = async (project_id: string, task_id: string) => {
@@ -159,6 +173,7 @@ const useHandleTimeSheet = ({
           message: 'Updated successfully',
           type: 'success',
         })
+        updateTableEntry(project_id, task_id)
         clearEntry()
         setFormErrors({})
       }

@@ -125,3 +125,7 @@ textarea.form-control {
 .react-datepicker__triangle::before{
   left: -15px !important;
 }
+
+.react-datepicker__triangle::after{
+  left: -15px !important;
+}
